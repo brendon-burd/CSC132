@@ -63,8 +63,8 @@ class TutorialRoom(Room):
 def main():
     pygame.init()
 
-    #create a 800x700 screen
-    screen = pygame.display.set_mode([800,700])
+    #create a 800x600 screen
+    screen = pygame.display.set_mode([800,600])
 
     #the title of the window and set the background
     pygame.display.set_caption('Game')
