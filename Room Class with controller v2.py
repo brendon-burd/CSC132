@@ -117,6 +117,11 @@ def main():
 
     #the title of the window and set the background
     pygame.display.set_caption('Game')
+    
+    # Create the player paddle object
+    player = Player(50, 50)
+    movingsprites = pygame.sprite.Group()
+    movingsprites.add(player)
      
 
     #create the player object
