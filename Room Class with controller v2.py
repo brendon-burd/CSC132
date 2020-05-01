@@ -1,18 +1,6 @@
 import pygame
 import RPi.GPIO as GPIO
-
-#Repalce these to actually make the player move
-def moveUp():
-    print "up"
-
-def moveDown():
-    print "down"
-
-def moveLeft():
-    print"left"
-
-def moveRight():
-    print "right"
+from time import sleep
 
 #define the colors
 BLACK = (0, 0, 0)
@@ -49,7 +37,7 @@ class Wall(pygame.sprite.Sprite):
 
 #Emily's player class
 #class that creates the player's sprite
-    class Sprite(pygame.sprite.Sprite):
+class Sprite(pygame.sprite.Sprite):
     #initialize the speed
     speed_x = 0
     speed_y = 0
@@ -68,9 +56,16 @@ class Wall(pygame.sprite.Sprite):
        self.change_x += x
        self.change_y += y
 
+    #for movment
+    def moveUp(self):
+        self.rect.y += -10
+    def moveDown(self):
+        self.rect.y += 10
+    def moveLeft(self):
+        self.rect.x += -10
+    def moveRight(self):
+        self.rect.x += 10
     
-    def move(self, walls):
-        pass
         #there needs to be a peramter that stops the sprite stops when it hits a wall 
 
 #Base class for all rooms
@@ -117,12 +112,11 @@ def main():
 
     #the title of the window and set the background
     pygame.display.set_caption('Game')
-    
+
     # Create the player paddle object
-    player = Player(50, 50)
+    player = Sprite(50, 50)
     movingsprites = pygame.sprite.Group()
-    movingsprites.add(player)
-     
+    movingsprites.add(player) 
 
     #create the player object
 
@@ -146,39 +140,43 @@ def main():
                 while(GPIO.input(buttons[i]) == True):
                     val = i
                     pressed = True
-
-            #Event Processing
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pressed = True
-                    done = True
                     
-        if(buttons[val] == UP_BUTT):
-            moveUp()
-        elif(buttons[val] == DOWN_BUTT):
-            moveDown()
-        elif(buttons[val] == R_BUTT):
-            moveRight()
-        elif(buttons[val] == L_BUTT):
-            moveLeft()
+                    if(buttons[val] == UP_BUTT):
+                        player.moveUp()
+                        sleep(.15)
+                    elif(buttons[val] == DOWN_BUTT):
+                        player.moveDown()
+                        sleep(.15)
+                    elif(buttons[val] == R_BUTT):
+                        player.moveRight()
+                        sleep(.15)
+                    elif(buttons[val] == L_BUTT):
+                        player.moveLeft()
+                        sleep(.15)
+                        
+                    #Event Processing
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pressed = True
+                            done = True
 
-        #Game logic
+                    #Game logic
 
- 
-        #drawing the backgrounds
-        background = pygame.image.load('tiles2_v3.gif')
-        screen.fill(BLACK)
-        screen.blit(background, (0,0))
-        
-        #draw the sprite
-        movingsprites.draw(background, (0,0))
+             
+                    #drawing the backgrounds
+                    background = pygame.image.load('tiles2_v3.gif')
+                    screen.fill(BLACK)
+                    screen.blit(background, (0,0))
+                    
+                    #draw the sprite
+                    movingsprites.draw(screen)
 
-        #draw the walls 
-        current_room.wall_list.draw(screen)
- 
-        pygame.display.flip()
- 
-        clock.tick(60)
+                    #draw the walls 
+                    current_room.wall_list.draw(screen)
+             
+                    pygame.display.flip()
+     
+                    clock.tick(60)
  
     pygame.quit()
 
