@@ -1,0 +1,47 @@
+from Tkinter import*
+import pygame
+
+class Character(object):
+    def __init__(self, name = "Bean", pronoun = "They"):
+        self.name = name
+        self.pronoun = pronoun
+        self.inventory = {}
+        
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def inventory(self):
+        return self._inventory
+
+    @inventory.setter
+    def inventory(self, value):
+        self._inventory = value
+
+    @property
+    def pronoun(self):
+        return self._pronoun
+
+    @pronoun.setter
+    def pronoun(self, value):
+        self._pronoun = value
+        
+
+    def __str__(self):
+        s = "This is {}.  {} had been(addin later)".format(self.name, self.pronoun)
+        return s
+
+
+c1 = Character("Ember", "They")
+c2 = Character("Brendon", "He")
+c3 = Character("Cameron", "She")
+
+print c1
+print c2
+print c3
