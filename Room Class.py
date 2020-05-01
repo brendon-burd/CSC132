@@ -37,22 +37,26 @@ class Room(object):
         self.enemy_sprites = pygame.sprite.Group()
         self.grabbables = pygame.sprite.Group()
 
+    #Loop through the list, create the wall, and add it to the list
+    def buildWalls(self, walls):
+        for item in walls:
+            wall = Wall(item[0], item[1], item[2], item[3], item[4])
+            self.wall_list.add(wall)
+
 class TutorialRoom(Room):
+
     def __init__(self):
         Room.__init__(self)
-
         #The list of walls
         walls = [[0, 0, 20, 250, WHITE],
-                 [0, 350, 20, 250, WHITE],
-                 [780, 0, 20, 250, WHITE],
-                 [780, 350, 20, 250, WHITE],
-                 [20, 0, 760, 20, WHITE],
-                 [20, 580, 760, 20, WHITE]]
+                [0, 350, 20, 250, WHITE],
+                [780, 0, 20, 250, WHITE],
+                [780, 350, 20, 250, WHITE],
+                [20, 0, 760, 20, WHITE],
+                [20, 580, 760, 20, WHITE]]
+        #send walls to buil wall function
+        Room.buildWalls(self, walls)
         
-    #Loop through the list, create the wall, and add it to the list
-    for item in walls:
-        wall = Wall(item[0], item[1], item[2], item[3], item[4])
-        self.wall_list.add(wall)
     
 
 ####### This is the main part of the program ##########
@@ -70,7 +74,7 @@ def main():
 
     rooms = []
 
-    room = TutorialRoom
+    room = TutorialRoom()
     rooms.append(room)
 
     current_room_num = 0
