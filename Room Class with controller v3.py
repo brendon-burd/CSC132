@@ -46,11 +46,11 @@ class Sprite(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([20,20])  
         self.image.fill(PURPLE)
-        
+
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        
+
     #change the speed of the sprite 
     def speed(self, x, y):
        self.change_x += x
@@ -65,7 +65,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x += -10
     def moveRight(self):
         self.rect.x += 10
-    
+
         #there needs to be a peramter that stops the sprite stops when it hits a wall 
 
 #Base class for all rooms
@@ -75,7 +75,7 @@ class Room(object):
     wall_list = None
     enemy_list = None
     grabbables = None 
- 
+
     def __init__(self):
         self.wall_list = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
@@ -90,7 +90,7 @@ class Room(object):
 class TutorialRoom(Room):
     def __init__(self):
         Room.__init__(self)
-        
+
         #The list of walls
         walls = [[0, 0, 20, 250, WHITE],
                 [0, 350, 20, 250, WHITE],
@@ -98,7 +98,7 @@ class TutorialRoom(Room):
                 [780, 350, 20, 250, WHITE],
                 [20, 0, 760, 20, WHITE],
                 [20, 580, 760, 20, WHITE]]
-        
+
         #send walls to build wall function
         Room.buildWalls(self, walls)
 
@@ -106,7 +106,7 @@ class TutorialRoom(Room):
 class Room1(Room):
     def __init__(self):
         Room.__init__(self)
-        
+
         #The list of walls
         walls = [[0, 0, 20, 250, BLACK],
                 [0, 350, 20, 250, BLACK],
@@ -114,10 +114,10 @@ class Room1(Room):
                 [780, 350, 20, 250, BLACK],
                 [20, 0, 760, 20, BLACK],
                 [20, 580, 760, 20, BLACK]]
-        
+
         #send walls to build wall function
         Room.buildWalls(self, walls)     
-    
+
 
 ####### This is the main part of the program ##########
 def main():
@@ -157,7 +157,7 @@ def main():
                 while(GPIO.input(buttons[i]) == True):
                     val = i
                     pressed = True
-                    
+
                     if(buttons[val] == UP_BUTT):
                         player.moveUp()
                         sleep(.15)
@@ -170,30 +170,37 @@ def main():
                     elif(buttons[val] == L_BUTT):
                         player.moveLeft()
                         sleep(.15)
-                        
+
                     #Event Processing
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             pressed = True
                             done = True
 
+                    #see if player sprite is at the exit
+                    if(player.rect.x == 800):
+                        current_room_num += 1
+                        player.rect.x = 20
 
-             
+                    #update room
+                    current_room = rooms[current_room_num]
+
+
                     #drawing the backgrounds
                     background = pygame.image.load('tiles2_v3.gif')
                     screen.fill(BLACK)
                     screen.blit(background, (0,0))
-                    
+
                     #draw the sprite
                     movingsprites.draw(screen)
 
                     #draw the walls 
                     current_room.wall_list.draw(screen)
-             
+
                     pygame.display.flip()
-     
+
                     clock.tick(60)
- 
+
     pygame.quit()
 
 if __name__ == "__main__":
