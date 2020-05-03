@@ -58,13 +58,13 @@ class Sprite(pygame.sprite.Sprite):
 
     #for movment
     def moveUp(self):
-        self.rect.y += -10
+        self.rect.y += -4
     def moveDown(self):
-        self.rect.y += 10
+        self.rect.y += 4
     def moveLeft(self):
-        self.rect.x += -10
+        self.rect.x += -4
     def moveRight(self):
-        self.rect.x += 10
+        self.rect.x += 4
 
         #there needs to be a peramter that stops the sprite stops when it hits a wall 
 
@@ -160,16 +160,12 @@ def main():
 
                     if(buttons[val] == UP_BUTT):
                         player.moveUp()
-                        sleep(.15)
                     elif(buttons[val] == DOWN_BUTT):
                         player.moveDown()
-                        sleep(.15)
                     elif(buttons[val] == R_BUTT):
                         player.moveRight()
-                        sleep(.15)
                     elif(buttons[val] == L_BUTT):
                         player.moveLeft()
-                        sleep(.15)
 
                     #Event Processing
                     for event in pygame.event.get():
