@@ -174,7 +174,7 @@ def main():
                             done = True
 
                     #see if player sprite is at the exit
-                    if(player.rect.x == 800):
+                    if(player.rect.x >= 800):
                         current_room_num += 1
                         player.rect.x = 20
 
