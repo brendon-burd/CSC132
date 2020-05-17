@@ -9,13 +9,15 @@ BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 PURPLE = (255, 0, 255)
+TRANSPARENT = (0, 0, 0, 0)
 
 #the buttons pin 
 UP_BUTT = 19
 DOWN_BUTT = 17
 R_BUTT = 18
 L_BUTT = 16
-buttons = [19, 17, 18, 16]
+SEL_BUTT = 24
+buttons = [19, 17, 18, 16, 24]
 
 #set up GPIO
 GPIO.setmode(GPIO.BCM)
@@ -67,6 +69,8 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x += -4
     def moveRight(self):
         self.rect.x += 4
+    def select(self):
+        pass
 
         #there needs to be a peramter that stops the sprite stops when it hits a wall 
 
@@ -195,6 +199,8 @@ def main():
                         player.moveRight()
                     elif(buttons[val] == L_BUTT):
                         player.moveLeft()
+                    elif(buttons[val] == SEL_BUTT):
+                        player.select()
 
                     #Event Processing
                     for event in pygame.event.get():
