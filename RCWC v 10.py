@@ -1,3 +1,4 @@
+from Tkinter import*
 import pygame
 import RPi.GPIO as GPIO
 from time import sleep
@@ -38,6 +39,46 @@ class Wall(pygame.sprite.Sprite):
         self.rect.x = x
 
 #Emily's player class
+class Character(object):
+    def __init__(self, name = "Bean", pronoun = "They"):
+        self.name = name
+        self.pronoun = pronoun
+        self.inventory = []
+        
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def inventory(self):
+        return self._inventory
+
+    @inventory.setter
+    def inventory(self, value):
+        self._inventory = value
+
+    @property
+    def pronoun(self):
+        return self._pronoun
+
+    @pronoun.setter
+    def pronoun(self, value):
+        if(pronoun == "he" or pronoun == "she"):
+            self._pronoun = value
+        else:
+            self._pronoun = "they"
+            
+    def select(self, grabbable):
+        self.inventory.append(grabbable)
+
+    def __str__(self):
+        s = "This is {}.  {} (are/is) today's test subject.".format(self.name, self.pronoun)
+        return s
+    
 #class that creates the player's sprite
 class Sprite(pygame.sprite.Sprite):
     #initialize the speed
@@ -69,8 +110,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x += -4
     def moveRight(self):
         self.rect.x += 4
-    def select(self):
-        pass
+    
 
         #there needs to be a peramter that stops the sprite stops when it hits a wall 
 
@@ -163,6 +203,10 @@ def main():
     pygame.display.set_caption('Game')
 
     # Create the sprite object
+    nm = raw_input("What is your name?")
+    gen = raw_input("What is your gender(he/she/they)?")
+    c1 = Character(nm, gen)
+    print c1
     player = Sprite(50, 50)
     movingsprites = pygame.sprite.Group()
     movingsprites.add(player) 
