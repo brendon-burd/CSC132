@@ -66,11 +66,8 @@ class Character(object):
         return self._pronoun
 
     @pronoun.setter
-    def pronoun(self, value):
-        if(pronoun == "he" or pronoun == "she"):
+    def pronoun(self, value)
             self._pronoun = value
-        else:
-            self._pronoun = "they"
             
     def select(self, grabbable):
         self.inventory.append(grabbable)
@@ -203,9 +200,7 @@ def main():
     pygame.display.set_caption('Game')
 
     # Create the sprite object
-    nm = raw_input("What is your name?")
-    gen = raw_input("What is your gender(he/she/they)?")
-    c1 = Character(nm, gen)
+    c1 = Character()
     print c1
     player = Sprite(50, 50)
     movingsprites = pygame.sprite.Group()
