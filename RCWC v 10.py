@@ -66,8 +66,11 @@ class Character(object):
         return self._pronoun
 
     @pronoun.setter
-    def pronoun(self, value)
+    def pronoun(self, value):
+        if(pronoun == "he" or pronoun == "she"):
             self._pronoun = value
+        else:
+            self._pronoun = "they"
             
     def select(self, grabbable):
         self.inventory.append(grabbable)
@@ -86,7 +89,7 @@ class Sprite(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('girl2.png').convert()
 
-        #make bg of sprite transperant (not sure why this isnt working)
+        #should make bg of sprite transperant
         self.image.set_colorkey(BLACK)
 
         self.rect = self.image.get_rect()
@@ -109,7 +112,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.x += 4
     
 
-        #there needs to be a peramter that stops the sprite stops when it hits a wall 
+     
 
 #Base class for all rooms
 class Room(object):
@@ -201,7 +204,6 @@ def main():
 
     # Create the sprite object
     c1 = Character()
-    print c1
     player = Sprite(50, 50)
     movingsprites = pygame.sprite.Group()
     movingsprites.add(player) 
@@ -238,8 +240,8 @@ def main():
                         player.moveRight()
                     elif(buttons[val] == L_BUTT):
                         player.moveLeft()
-                    elif(buttons[val] == SEL_BUTT):
-                        player.select()
+                    #elif(buttons[val] == SEL_BUTT):
+                        #player.select()
 
                     #Event Processing
                     for event in pygame.event.get():
